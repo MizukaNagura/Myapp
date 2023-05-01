@@ -1,0 +1,26 @@
+<!-- app/views/members/index.html.erb -->
+
+<%= form_with(url: delete_selected_members_path, method: :delete, local: true) do %>
+  <h1>会員一覧</h1>
+  
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @members.each do |member| %>
+        <tr>
+          <td><%= check_box_tag 'member_ids[]', member.id %></td>
+          <td><%= member.name %></td>
+          <td><%= member.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <%= submit_tag '選択した会員を削除', data: { confirm: '選択した会員を削除してもよろしいですか？' }, class: 'btn btn-danger' %>
+<% end %>
