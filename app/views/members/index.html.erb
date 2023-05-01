@@ -23,4 +23,28 @@
   </table>
   
   <%= submit_tag '選択した会員を削除', data: { confirm: '選択した会員を削除してもよろしいですか？' }, class: 'btn btn-danger' %>
+
+<%= link_to '新規登録', new_member_path, class: 'btn btn-primary' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+        <td><%= member.email %></td>
+        <td>
+          <%= link_to '編集', edit_member_path(member), class: 'btn btn-primary' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <% end %>

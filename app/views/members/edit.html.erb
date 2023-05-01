@@ -1,0 +1,17 @@
+<!-- app/views/members/edit.html.erb -->
+
+<h1>会員情報の編集</h1>
+
+<%= form_for @member do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.submit '変更', class: 'btn btn-primary' %>
+  </div>
+<% end %>

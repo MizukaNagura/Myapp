@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :members, only: [:index]
+  # resources :members_path 
+  resources :members
+
+
   # 他のルーティング設定
 end
 

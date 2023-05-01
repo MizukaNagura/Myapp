@@ -1,2 +1,4 @@
 class Member < ApplicationRecord
-end
+    acts_as_paranoid
+  end
+  
