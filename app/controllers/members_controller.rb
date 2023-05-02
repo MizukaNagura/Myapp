@@ -33,7 +33,22 @@ class MembersController < ApplicationController
       render :edit
     end
   end
-  
+
+  def show
+    @member = Member.find(params[:id])
+  end
+
+  # search アクションを private の外に移動
+  def search
+    search_query = params[:search]
+    if search_query.present?
+      @members = Member.where("name LIKE ? OR email LIKE ?", "%#{search_query}%", "%#{search_query}%")
+    else
+      @members = Member.all
+    end
+    render :index
+  end
+
   private
   
   def member_params

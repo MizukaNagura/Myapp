@@ -1,50 +1,42 @@
 <!-- app/views/members/index.html.erb -->
 
-<%= form_with(url: delete_selected_members_path, method: :delete, local: true) do %>
-  <h1>会員一覧</h1>
-  
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @members.each do |member| %>
-        <tr>
-          <td><%= check_box_tag 'member_ids[]', member.id %></td>
-          <td><%= member.name %></td>
-          <td><%= member.email %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  
-  <%= submit_tag '選択した会員を削除', data: { confirm: '選択した会員を削除してもよろしいですか？' }, class: 'btn btn-danger' %>
+<div class="container">
+  <h1 class="my-4">会員一覧</h1>
 
-<%= link_to '新規登録', new_member_path, class: 'btn btn-primary' %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @members.each do |member| %>
-      <tr>
-        <td><%= member.name %></td>
-        <td><%= member.email %></td>
-        <td>
-          <%= link_to '編集', edit_member_path(member), class: 'btn btn-primary' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<%= form_with(url: search_members_path, method: :get, local: true, class: 'search-form') do %>
+  <%= label_tag :search, '検索:' %>
+  <%= text_field_tag :search, params[:search], placeholder: '名前またはメールで検索' %>
+  <%= submit_tag '検索', class: 'btn btn-secondary' %>
 <% end %>
+
+  <%= form_with(url: delete_selected_members_path, method: :delete, local: true) do %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @members.each do |member| %>
+            <tr>
+              <td><%= check_box_tag 'member_ids[]', member.id %></td>
+              <td><%= member.name %></td>
+              <td><%= member.email %></td>
+              <td>
+                <%= link_to '編集', edit_member_path(member), class: 'btn btn-primary' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between">
+      <%= submit_tag '選択した会員を削除', data: { confirm: '選択した会員を削除してもよろしいですか？' }, class: 'btn btn-danger' %>
+      <%= link_to '新規登録', new_member_path, class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
