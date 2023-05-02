@@ -38,7 +38,6 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
   end
 
-  # search アクションを private の外に移動
   def search
     search_query = params[:search]
     if search_query.present?
@@ -46,9 +45,13 @@ class MembersController < ApplicationController
     else
       @members = Member.all
     end
-    render :index
+  
+    respond_to do |format|
+      format.html { render :index }
+      format.js { render partial: 'members_table', locals: { members: @members } }
+    end
   end
-
+  
   private
   
   def member_params
